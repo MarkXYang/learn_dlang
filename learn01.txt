@@ -1,0 +1,22 @@
+1. Run the command line with rdmd as the following.
+
+$ rdmd --eval='foreach(line; File("test.txt").byLine) { if(line.length < 8) writeln(line); }'
+
+2. Component programming like the example below.
+      │ File: component.d
+───────┼────────────────────────────────────────────────────────────────────────
+   1   │ import std.stdio;
+   2   │ import std.algorithm;
+   3   │ import std.functional;
+   4   │ import std.range;
+   5   │ import std.string;
+   6   │
+   7   │ void main() {
+   8   │     File("test.txt")
+   9   │         .byLine
+  10   │         .filter!(not!empty)
+  11   │         .map!capitalize
+  12   │         .take(3)
+  13   │         .writeln();
+  14   │ }
+
